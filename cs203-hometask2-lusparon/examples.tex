@@ -1,0 +1,107 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{cmap}
+\usepackage{indentfirst}
+\usepackage{fancyhdr}
+\usepackage{stmaryrd}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[center]{titlesec}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,shapes,automata} 
+\tikzset{
+  treenode/.style = {align=center, inner sep=0pt, text centered,
+    font=\sffamily,minimum height=1.2em},
+  app/.style = {treenode, black, rectangle, font=\itshape,
+     text width=2.2em},% arbre rouge noir, noeud noir
+  lam/.style = {treenode,  black,  
+    text width=1.5em},% arbre rouge noir, noeud rouge
+  var/.style = {treenode, circle, 
+    minimum width=1.5em, minimum height=0.5em}% arbre rouge noir, nil
+}
+
+
+
+
+\textwidth=17cm
+\voffset=-1cm
+\hoffset=-0.5cm
+\topmargin=0cm
+\textheight=24.5cm
+\oddsidemargin=0pt
+
+\input{task-defs}
+
+\begin{document}
+\section*{Пример дерева разбора $\lambda$-терма}
+
+\begin{center}
+\begin{tikzpicture}[-,>=stealth',level/.style={sibling distance = 3cm/#1,level distance = 1.2cm}]
+    
+\node [app] {App}
+    child{ node [lam] {$\L x$} 
+            child{ node [lam] {$\L y$}
+                  child{ node [app] {App}
+							child{ node [var] {$x$}}
+							child{ node [var] {$y$}}
+                  }
+            }                            
+    }
+    child{ node [lam] {$\L x$}
+            child{ node [var] {$v$} 
+            }
+		}
+; 
+\end{tikzpicture}
+\end{center}
+
+\section*{Примеры вычисления нормальной формы}
+\begin{enumerate}
+\item 
+\[
+\begin{array}{ll}
+  (\Lx \underline{(\Ly yx)\,z})\,v &\betared (\Lx [z/y](yx))\,v = (\Lx zx)\,v\\
+  	&\betared [v/x](zx)=zv;\\
+ \underline{(\Lx (\Ly yx)\,z)\,v} &\betared [v/x]((\Ly yx)\,z) = (\Ly yv)\,z\\
+  	&\betared [z/y](yv)=zv.
+\end{array}
+\]
+\item 
+\[
+\begin{array}{lcl}
+  \mathrm{is\_zero?}\ 0 &=& (\Lvar{n} n\,(\Lx false)\,true)\,(\Lx\Ly y)\\
+  	&=& (\Lx\Ly y) (\Lx false)\,true\\
+  	&=& (\Ly y)\, true\\
+  	&=& true;\\
+  \mathrm{is\_zero?}\ 1 &=& (\Lvar{n} n\,(\Lx false)\,true)\,(\Lx\Ly xy)\\
+    &=& (\Lx\Ly xy) (\Lx false)\,true\\
+  	&=& (\Ly (\Lx false)\,y)\, true\\
+  	&=& (\Lx false)\, true\\
+  	&=& false.  	
+\end{array}
+\]
+\end{enumerate}
+
+\section*{Пример преобразования в комбинаторную форму}
+
+\[
+\begin{array}{lcl}
+T[\Lx\Ly yx] &=&\\
+&=& T[\Lx T[\Ly (y x)]]\quad \text{(правило 5)}\\
+&=& T[\Lx (\cS T[\Ly y] T[\Ly x])]\quad \text{(правило 6)}\\
+&=& T[\Lx (\cS \cI T[\Ly x])]\quad \text{(правило 4)}\\
+&=& T[\Lx (\cS \cI (\cK x))]\quad \text{(правила 3 и 1)}\\
+&=& (\cS T[\Lx (\cS \cI)] T[\Lx (\cK x)])\quad \text{(правило 6)}\\
+&=& (\cS (\cK (\cS \cI)) T[\Lx (\cK x)])\quad \text{(правило 3)}\\
+&=& (\cS (\cK (\cS \cI)) (\cS T[\Lx \cK] T[\Lx x]))\quad \text{(правило 6)}\\
+&=& (\cS (\cK (\cS \cI)) (\cS (\cK \cK) T[\Lx x]))\quad \text{(правило 3)}\\
+&=& (\cS (\cK (\cS \cI)) (\cS (\cK \cK) \cI))\quad \text{(правило 4)}\\
+\end{array}
+\]
+
+\end{document}

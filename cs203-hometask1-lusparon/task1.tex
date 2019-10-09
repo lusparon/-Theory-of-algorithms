@@ -1,0 +1,171 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{cmap}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage[center]{titlesec}
+\usepackage{mathtools}
+\textwidth=17cm
+\voffset=-1cm
+\hoffset=-0.5cm
+\topmargin=0cm
+\textheight=24.5cm
+\oddsidemargin=0pt
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\bfseries CS203. Теория алгоритмов}
+\rhead{\itshape 2017/2018 (весенний семестр)}
+\fancyfoot{}
+
+\renewcommand{\theenumii}{\asbuk{enumii}}
+\AddEnumerateCounter{\asbuk}{\@asbuk}{\cyrm}
+
+\renewcommand{\to}{\longrightarrow}
+\newcommand{\tof}{\to\!\!.\ }
+\newcommand{\tod}{\Longrightarrow}
+\newcommand{\xtod}[1]{\xRightarrow{\text{#1\ } }}
+\newcommand{\alphabet}[2]{#1=\{#2\}}
+\newcommand{\salp}[1]{\alphabet{\Sigma}{#1}}
+
+\begin{document}
+\section*{Задание №1: нормальные алгорифмы А.\,А.\,Маркова~(младшего)}
+
+\begin{enumerate}
+
+\item Дана схема нормального алгорифма в алфавите $\salp{a, b}$:
+\[
+  \begin{cases}a\tof\varepsilon,\\ b\to bb. \end{cases}
+\]
+\begin{enumerate}
+\item Определите смысл действия этого алгорифма.
+\item Приведите примеры слов, на которых действие алгорифма завершается.
+\item Приведите примеры слов, на которых действие алгорифма не завершается.
+\item Имеются ли слова, на которых алгорифм завершается из-за того, что к текущему слову неприменима ни одна из подстановок?
+\end{enumerate}
+
+\item Ответьте на те же вопросы, что и в первом упражнении, если схема нормального алгорифма в алфавите $\salp{1}$ состоит из одной подстановки:
+%  \begin{multicols}{2}
+  \begin{enumerate}
+  \item  $1\to\varepsilon$;
+  \item $\varepsilon\tof 1$.
+  \end{enumerate}
+%  \end{multicols}
+
+\item Даны схемы нормальных алгорифмов в алфавите $\salp{a,b}$:
+\begin{multicols}{3}
+  \begin{enumerate}[label=\arabic*)]
+\item  $\begin{cases}
+  ab\to a,\\
+  b\to\varepsilon,\\
+  a\to b;
+\end{cases}$%
+\item $\begin{cases}
+  ba\to ab,\\
+  a\to\varepsilon,\\
+  b\tof b;
+\end{cases}$
+\item  $\begin{cases}
+  ab\to a,\\
+  b\tof\varepsilon,\\
+  a\to b;
+\end{cases}$
+\item 
+$\begin{cases}
+  ab\to b,\\
+  ba\to bb,\\
+  b\tof \varepsilon;
+\end{cases}$
+\item $\begin{cases}
+ba\to a,\\
+bb\to b,\\
+ab\to\varepsilon,\\
+\varepsilon\tof b;  
+\end{cases}$
+\item $\begin{cases}
+bb\to ba,\\
+ba\to a,\\
+a\to\varepsilon,\\
+\varepsilon\tof b.
+\end{cases}$
+\end{enumerate}
+ \end{multicols}
+
+Примените эти алгорифмы к следующим словам:
+\begin{multicols}{3}
+\begin{enumerate}
+\item $bbaab$;
+\item $aabbbaa$;
+\item $bababab$;
+\item $aaaa$;
+\item $bbbbb$;
+\item $aabaabb$;
+\item $abbbbba$;
+\item $baab$;
+\item $bbbaaa$;
+\item $abbabba$;
+\item $abbbaaab$;
+\item $\varepsilon$.
+\end{enumerate}
+\end{multicols}
+\newpage
+
+\item Напишите схемы нормальных алгорифмов для решения следующих задач:
+\begin{enumerate}[topsep=0pt,partopsep=0pt,itemsep=1pt]
+\item Преобразование любого слова в алфавите $\salp{a,b,c}$ в $\varepsilon$.
+
+\item Проверка чётности числа, заданного в унарной системе счисления (в алфавите $\salp{1}$).
+Число должно преобразовываться в $1$, если оно нечётное, и~в~$\varepsilon$ в~противном случае.
+
+\item Увеличение на единицу числа, заданного в десятичной записи.
+
+\item Увеличение числа, заданного двоичной записью, на 2.
+
+\item Приписывание к концу любого входного слова $abab$ (над алфавитом $\salp{a,b}$).
+
+\item Приписывание к концу любого непустого входного слова символа $a$, если в слове
+ присутствует чётное количество символов $a$, и символа $b$ в противном случае (над алфавитом $\salp{a,b}$).
+
+\item Вычисление частного от деления числа, заданного в унарной системе счисления, на 2.
+
+\item Умножение числа, заданного в унарной системе счисления, на 2.
+
+\item Вычисление частного и остатка от деления числа, заданного в унарной системе счисления, на 
+два (над алфавитом $\salp{1,\#}$). Результат должен записываться в виде «частное$\#$остаток». 
+Ноль должен соответствовать пустому слову.
+
+\item Дублирование всех символов входного слова (над алфавитом $\salp{a,b}$). 
+Например: $abab\Rightarrow aabbaabb$.
+
+\item Перестановка символов входного слова в обратном порядке (над $\salp{a,b}$).
+
+\item Cортировка символов входного слова (над алфавитом $\salp{a,b,c}$).
+
+\item Проверка, является ли входное слово палиндромом (над алфавитом $\salp{a,b}$). 
+Если является, то результатом должно быть пустое слово,
+если не является, то результатом может быть любое непустое слово.
+
+\item Проверка, является ли входное слово именем одного из основных регистров процессора Intel 8088
+(AX, BX, CX или DX).  Результатом должно быть либо имя регистра, либо пустое слово.
+\end{enumerate}
+
+\end{enumerate}
+
+\subsubsection*{Задание на программирование (до 5 бонусных баллов)}
+
+ Напишите на любом языке программирования программу, которая принимает на вход схему нормального алгорифма в произвольном формате вместе с входным словом и печатает результат применения схемы к слову вместе со всеми промежуточными преобразованиями. \emph{Указание.} Это задание должно выполняться в собственном закрытом репозитории на github.com, который можно получить в рамках студенческого пакета для разработчиков (\url{https://education.github.com/pack}). Для начисления бонусных баллов задание на программирование должно быть выполнено до конца семестра.
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

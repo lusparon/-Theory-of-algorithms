@@ -1,0 +1,51 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{cmap}
+\usepackage{indentfirst}
+\usepackage{fancyhdr}
+\usepackage{stmaryrd}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[center]{titlesec}
+
+
+
+\textwidth=17cm
+\voffset=-1cm
+\hoffset=-0.5cm
+\topmargin=0cm
+\textheight=24.5cm
+\oddsidemargin=0pt
+
+\input{task-defs}
+
+
+\begin{document}
+
+
+\section*{Примеры записи рекурсивных функций и предикатов}
+
+
+
+$y=p_n\equiv Pr(y)\wedge \pi(y)=n+1\in\PR_*$; $p_n=(\mu y)_{\leqslant 2^{2^n}}(y=p_n)$.
+
+
+$Seq(x)\equiv x>1 \wedge (\forall y)_{\leqslant x}(\forall z)_{\leqslant x}\Big(Pr(y)\wedge Pr(z)\wedge y<z \wedge z|x\to y|x\Big)$
+
+
+\begin{flalign*}
+  URM(z) &\equiv Seq(z)\wedge \Big((z)_{l(z)\monus 1}=[5,l(z)]\Big)\wedge&&\\
+         &\wedge (\forall L)_{<l(z)}\Bigg(Seq((z)_L)\wedge\Big(L\neq l(z)\monus 1\to ((z)_L)_0\neq 5  \Big)\wedge\\
+         &\qquad \wedge\Big\{(z)_L=[5,L+1]\vee\\
+         &\qquad\qquad\vee(\exists i)_{\leqslant z}(\exists a)_{\leqslant z}\Big((z)_L=[1,L+1,i+1,a]\Big)\vee\\
+         &\qquad\qquad\vee(\exists i)_{\leqslant z}\big\{ (z)_L=[2,L+1,i+1]\vee (z)_L=[3,L+1,i+1]\vee\\
+         &\qquad\qquad\vee (\exists M)_{<l(z)}(\exists R)_{<l(z)}\big((z)_L=[4,L+1,i+1,M+1,R+1]\big)  \big\}\Big\} \Bigg).&&
+\end{flalign*}
+
+
+\end{document}

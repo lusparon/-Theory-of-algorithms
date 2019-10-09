@@ -1,0 +1,248 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{indentfirst}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{cmap}
+\usepackage{euscript}
+\usepackage{fancyhdr}
+\usepackage{nicefrac}
+\usepackage{multicol}
+\usepackage{stmaryrd}
+\usepackage[english,russian]{babel}
+\usepackage{multicol}
+\usepackage[center]{titlesec}
+\usepackage{enumitem}
+\usetikzlibrary{arrows,automata}
+
+\textwidth=17cm
+\hoffset=-0.8cm
+%\voffset=0cm
+%\voffset=-2cm
+%\headsep=0cm
+\topmargin=0cm
+\textheight=23cm
+\oddsidemargin=0pt
+\parindent=1.25cm
+
+\linespread{1.1}
+
+\pagestyle{empty}
+\pagestyle{fancy}
+\lhead{\bfseries Теория алгоритмов}
+\rhead{\itshape 2018/2019 (весенний семестр)}
+%\fancyfoot{}
+
+
+\renewcommand{\theenumii}{\asbuk{enumii}}
+\AddEnumerateCounter{\asbuk}{\@asbuk}{\cyrm}
+
+
+\newcommand{\FF}{\mathbb F}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\CC}{\mathbb C}
+
+\newcommand{\tol}{\shortleftarrow}
+\newcommand{\tor}{\shortrightarrow}
+\newcommand{\tra}[3]{{\scriptsize $#1/#2\!#3$}}
+
+\newcommand{\monus}{\stackrel{{}^{\scriptstyle .}}{\smash{-}}}
+\begin{document}
+\section*{Задание №3: машины Тьюринга}
+
+\subsection*{Базовое определение, регистры и дорожки}
+
+\begin{enumerate}[itemsep=0pt]
+\item Дана машина Тьюринга
+$M=\left(\{q_0, q_1, q_2, q_3\},\{1,*\},\{1,*,B\},\delta,q_0,B,\{q_3\}\right)$, функция
+переходов $\delta$ которой задана таблицей:
+\begin{center}
+  \begin{tabular}[t]{c||c|c|c}
+     & $B$ & 1 & $*$\\
+    \hline\hline
+    $q_0$ & --- &$(q_1,B,R)$& $(q_3,B,R)$\\
+    $q_1$ &$(q_2,1,L)$  &$(q_1,1,R)$& $(q_1,*,R)$\\
+    $q_2$ &$(q_0,B,R)$  &$(q_2,1,L)$& $(q_2,*,L)$\\
+    $q_3$ & --- & --- & ---
+  \end{tabular}
+  
+\end{center}
+
+\begin{enumerate}[itemsep=0pt]
+\item Нарисовать диаграмму переходов.
+\item Выписать последовательности конфигураций для следующих слов:\\ 1) $1*11$; 2) $11*1$; 
+3) $*111$; 4) $11*$. 
+\item Установить закономерность в работе машины и описать задачи, 
+решаемые каждым из состояний. 
+\item Вычислить количество
+операций до останова машины в зависимости от размера исходных данных.
+\end{enumerate}
+
+\item Функция переходов машины  
+$M=\left(\{q_0, q_1, q_2, q_3, q_4\},\{0, 1\},\{0,1,X,Y,B\},\delta,q_0,B,\{q_4\}\right)$  задана
+диаграммой:
+\vspace{-3mm}
+\begin{center}
+  \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+\tikzstyle{every node}=[font=\small]
+  \node[initial, initial text=,state] (A)                    {$q_0$};
+  \node[state]         (B) [right of=A] {$q_1$};
+  \node[state]         (C) [right of=B] {$q_2$};
+  \node[state]         (D) [below  of=A] {$q_3$};
+  \node[state,accepting]         (E) [right of=D]       {$q_4$};
+
+  \path (A) edge              node {\tra 0X\tor} (B)
+        (B) edge [loop above] node {\tra YY\tor, \tra 00\tor} (B)
+        (B) edge              node {\tra 1Y\tol} (C)
+        (C) edge [loop right] node {\tra YY\tol, \tra 00\tol} (C)
+        (C) edge [bend left]  node {\tra XX\tor} (A)
+        (A) edge              node {\tra YY\tor} (D)
+        (D) edge [loop below] node {\tra YY\tor} (D)
+        (D) edge              node {\tra BB\tor} (E);
+\end{tikzpicture}
+\end{center}
+\begin{enumerate}
+\item Выписать последовательности конфигураций для следующих слов:\\ 1) $0011$; 2) $011$; 
+3) $111$; 4) $01$. 
+\item Сформулировать алгоритм, в соответствии с которым
+эта машина действует. 
+\item Описать язык этой машины (то есть множество всех слов, на которых машина 
+завершается в допускающем состоянии) и определить, является ли он
+рекурсивным (всегда ли эта машина завершается).
+\end{enumerate}
+
+
+\item Написать программы для машины Тьюринга, распознающие следующие языки:
+\vspace{-3mm}
+  \begin{enumerate}[itemsep=0pt]
+  \item все слова над алфавитом $\Sigma=\{1\}$ с чётным количеством единиц;
+  \item все слова над алфавитом $\Sigma=\{0,1\}$ с чётным количеством единиц;
+  \item все слова над алфавитом $\Sigma=\{0,1\}$, которые заканчиваются на единицу;
+  \item все слова над алфавитом $\Sigma=\{0,1\}$, которые содержат в точности один
+нуль в~начале слова и произвольное количество единиц;
+\vspace{-1mm}
+\item все слова над алфавитом $\Sigma=\{0,1\}$, которые начинаются и заканчиваются
+нулями и имеют произвольное количество единиц между ними.
+
+  \end{enumerate}
+
+\end{enumerate}
+
+
+\subsection*{Разновидности машин Тьюринга}
+
+\begin{enumerate}
+\item Построить двухленточную машину Тьюринга, допускающую язык всех слов
+  из~0 и~1, в которых этих символов поровну. Первая лента содержит вход и просматривается
+  слева направо. Вторая лента используется для запоминания излишка нулей по отношению к 
+  единицам и наоборот в прочитанной части входа. Описать состояния и переходы, а также
+  неформальное предназначение каждого состояния. 
+
+\item Описать идеи многоленточных машин Тьюринга, распознающих следующие языки:
+  \begin{enumerate}
+  \item  $L(M)=\{ww^R\mid w \mbox{\ --- произвольное слово из символов 0 и 1}\}$, символом
+    $w^R$ обозначается слово, записанное теми же символами, что и $w$, но расположенными в обратном 
+    порядке;
+  \item $L(M)=\{a^nb^nc^n\mid n\geqslant 1\}$.
+  \end{enumerate}
+
+\item Машина Тьюринга, называемая $k$-головочной, имеет $k$ головок, читающих клетки на одной
+ленте. Переход такой МТ зависит от состояния и символов, обозреваемых головками. За один переход
+эта МТ может изменить состояние, записать новый символ в клетку, обозреваемую каждой из головок, 
+и сдвинуть каждую головку влево, вправо или оставить на месте. Поскольку несколько головок могут
+одновременно обозревать одну и ту же клетку, предполагается, что головки пронумерованы от~1
+ до~$k$, и символ, который в действительности записывается в клетку, есть символ, записываемый
+головкой с наибольшим номером. Доказать, что множества языков, допускаемых $k$-головочными
+и обычными машинами Тьюринга, совпадают.
+
+\item  Преобразовать машину Тьюринга
+$M=\left(\{q_0, q_1, q_2\},\{0,1\},\{0,1,B\},\delta,q_0,B,\{q_2\}\right)$
+к~виду, в котором машина не перемещается 
+левее начального положения:
+\begin{multicols}{2}
+  \begin{enumerate}
+  \item 
+  \begin{tabular}[t]{c||c|c|c}
+     $\delta$ & $B$ & 1 & $0$\\
+    \hline\hline
+    $q_0$ & --- &$(q_1,1,R)$& --- \\
+    $q_1$ &$(q_2,0,L)$  & --- & --- \\
+    $q_2$ & --- & --- & ---\\
+  \end{tabular}
+
+\item 
+  \begin{tabular}[t]{c||c|c|c}
+     $\delta$ & $B$ & 1 & $0$\\
+    \hline\hline
+    $q_0$ & --- &$(q_1,1,R)$& $(q_1,0,L)$\\
+    $q_1$ &$(q_2,0,R)$  & --- & --- \\
+    $q_2$ & --- & --- & ---\\
+  \end{tabular}
+  \end{enumerate}
+\end{multicols}
+
+Привести примеры работы полученной машины на нескольких словах.
+
+\item Недетерминированная машина Тьюринга $M=\left(\{q_0, q_1, q_2\},\{0,1\},\{0,1,B\},\delta,q_0,B,\{q_2\}\right)$  представлена следующей функцией переходов:
+\begin{center}
+  \begin{tabular}[t]{c||c|c|c}
+     & $0$ & 1 & $B$\\
+    \hline\hline
+    $q_0$ & $\{(q_0, 1, R)\}$ &$\{(q_1,0,R)\}$ & --- \\
+    $q_1$ &$\{(q_1, 0, R), (q_0,0,L)\}$  &$\{(q_1,1,R),(q_0,1,L)\}$& $\{(q_2,B,R)\}$\\
+    $q_2$ & --- & --- & ---
+  \end{tabular}
+  
+\end{center}
+Показать, какие конфигурации достижимы из начальной конфигурации, 
+если входом является следующая цепочка:
+\begin{multicols}{3}
+\begin{enumerate}
+\item $01$;
+\item $001$;
+\item $011$.
+\end{enumerate}
+\end{multicols}
+
+\item Недетерминированная машина $M=\left(\{q_0, q_1, q_2, q_f\},\{0,1\},\{0,1,B\},\delta,q_0,B,\{q_f\}\right)$  представлена следующей функцией переходов:
+  \begin{multicols}{2}
+  \begin{itemize}
+  \item  $\delta(q_0,0)=\{(q_0,1,R), (q_1,1,R)\}$,
+  \item $\delta(q_1,1)=\{(q_2,0,L)\}$,
+  \item $\delta(q_2,1)=\{(q_0,1,R)\}$,
+  \item $\delta(q_1,B)=\{(q_f, B, R)\}$.
+  \end{itemize}
+    
+  \end{multicols}
+Описать смысл ветвления в первом правиле для функции $\delta$ и язык этой машины.
+
+\item Описать идеи недетерминированных, возможно многоленточных, машин Тьюринга, распознающих
+следующие языки:
+\begin{enumerate}
+\item язык всех слов из символов 0 и 1, содержащих некоторое подслово длиной 100, которое повторяется, причём необязательно подряд;
+\item язык всех слов вида $w_1\#w_2\#\dots\#w_n$ для произвольного $n$, где подслова 
+$w_i$ состоят из символов 0 или 1, причём для некоторого  $j$ подслово $w_j$ есть двоичная запись числа $j$;
+\item язык того же вида, что и в пункте (б), в котором хотя бы для двух различных значений $j$ подслово $w_j$ есть двоичная запись числа $j$.
+\end{enumerate}
+\emph{Совет}: использование недетерминизма позволяет избежать итераций и сократить время 
+работы в недетерминированном смысле, то есть лучше, чтобы ветвей было много, но они были 
+короткими.
+
+
+
+
+\end{enumerate}
+
+\subsection*{Литература}
+\begin{enumerate}
+\item Хопкрофт Дж., Мотвани Р., Ульман Дж. Введение в теорию автоматов, языков и~вычислений. — 2-е изд. — М.: Вильямс, 2002. — 528 с. (Глава 8, разделы 8.2--8.4, 8.5.1.)
+\end{enumerate}
+
+\end{document}

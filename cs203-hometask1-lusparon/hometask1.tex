@@ -1,0 +1,105 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{cmap}
+\usepackage{indentfirst}
+\usepackage{fancyhdr}
+\usepackage{stmaryrd}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{mathtools}
+
+\textwidth=17cm
+\voffset=-1cm
+\hoffset=-0.5cm
+\topmargin=0cm
+\textheight=24.5cm
+\oddsidemargin=0pt
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lhead{\bfseries Домашнее задание №1}
+\rhead{Тызыхян Луспарон, 2.8}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
+\fancyfoot{}
+
+\renewcommand{\to}{\longrightarrow}
+\newcommand{\tof}{\to\!\!.\ }
+\newcommand{\tod}{\Longrightarrow}
+\newcommand{\xtod}[1]{\xRightarrow{\text{#1\ } }}
+\newcommand{\alphabet}[2]{#1=\{#2\}}
+\newcommand{\salp}[1]{\alphabet{\Sigma}{#1}}
+\AddEnumerateCounter{\asbuk}{\@asbuk}{\cyrm}
+
+\begin{document}
+\begin{center}
+\section*{Домашнее задание №1}
+\end{center}
+
+
+\subsubsection*{Задания по упражнению 2}
+
+\emph{Выполните один любой пункт упражнения.}
+
+Решение(пункт а).
+\begin{enumerate}
+	\item Преобразование всех вхождений 1 на $ \varepsilon$ 
+	\item Действие алгорифма заканчивает при любом входном слове
+	\item Да , слова в которых нет ни одного вхлждения 1
+\end{enumerate}
+
+\subsubsection*{Задания по упражнению 3}
+
+\emph{Выберите любые три схемы (1--6) и примените каждую к трём различным словам (а--м).}
+
+Решение.
+\begin{multicols}{3}
+\begin{enumerate}
+\item  $\begin{cases}
+ab\to a,\\
+b\to\varepsilon,\\
+a\to b;
+\end{cases}$%
+\item $\begin{cases}
+ba\to ab,\\
+a\to\varepsilon,\\
+b\tof b;
+\end{cases}$
+\item  $\begin{cases}
+ab\to a,\\
+b\tof\varepsilon,\\
+a\to b;
+\end{cases}$
+\end{enumerate}
+\end{multicols}
+
+\setlength{\parindent}{0pt}
+1a) $bba\underline{ab}\tod\underline{b}baa\tod\varepsilon\underline{b}aa\tod\varepsilon\varepsilon\underline{a}a\tod\varepsilon\varepsilon\underline{b}a\tod\varepsilon\varepsilon\varepsilon\underline{a}\tod\varepsilon\varepsilon\varepsilon\underline{b}\tod\varepsilon\varepsilon\varepsilon\varepsilon$ \\
+1б)$a\underline{ab}bbaa\tod a\underline{ab}baa\tod a\underline{ab}aa\tod\underline{a}aaa\tod \underline{b}aaa\tod \varepsilon\underline{a}aa
+\tod \varepsilon\underline{b}aa\tod \varepsilon\varepsilon\underline{a}a\tod \varepsilon\varepsilon\underline{b}a\tod \varepsilon\varepsilon\varepsilon\underline{a}\tod \varepsilon\varepsilon\varepsilon\underline{b}\tod \varepsilon\varepsilon\varepsilon\varepsilon$ \\
+1в)$b\underline{ab}abab\tod ba\underline{ab}ab\tod baa\underline{ab}\tod \underline{b}aaa\tod \tod \varepsilon\underline{a}aa
+\tod \varepsilon\underline{b}aa\tod \varepsilon\varepsilon\underline{a}a\tod \varepsilon\varepsilon\underline{b}a\tod \varepsilon\varepsilon\varepsilon\underline{a}\tod \varepsilon\varepsilon\varepsilon\underline{b}\tod \varepsilon\varepsilon\varepsilon\varepsilon$ \\
+2a) $ b\underline{ba}ab\tod \underline{ba}bab\tod ab\underline{ba}b\tod a\underline{ba}bb\tod \underline{a}abbb\tod \varepsilon\underline{a}bbb\tod \varepsilon\varepsilon\underline{b}bb\tod \varepsilon\varepsilon bbb$\\
+2б) $ aabb\underline{ba}a\tod aab\underline{ba}ba\tod aa\underline{ba}bba\tod aaabb\underline{ba}\tod aaab\underline{ba}b\tod aaa\underline{ba}bb\tod \underline{a}aaabbb\tod \varepsilon\underline{a}aabbb\tod \varepsilon\varepsilon\underline{a}abbb\tod \varepsilon\varepsilon\varepsilon\underline{a}bbb\tod \varepsilon\varepsilon\varepsilon\varepsilon\underline{b}bb\tod \varepsilon\varepsilon\varepsilon\varepsilon bbb$\\ 
+2в) $ \underline{ba}babab\tod ab\underline{ba}bab\tod a\underline{ba}bbab\tod aabb\underline{ba}b\tod aab\underline{ba}bb\tod aa\underline{ba}bbb\tod \underline{a}aabbbb\tod \varepsilon\underline{a}abbbb\tod \varepsilon\varepsilon\underline{a}bbbb\tod \varepsilon\varepsilon\varepsilon\underline{b}bbb\tod \varepsilon\varepsilon\varepsilon bbbb$\\
+
+
+\subsubsection*{Задания по упражнению 4}
+
+\emph{Выполните любые шесть заданий (кроме б, д, м).}
+
+Решение.
+
+
+\end{document}

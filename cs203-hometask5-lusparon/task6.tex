@@ -1,0 +1,149 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{indentfirst}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{cmap}
+\usepackage{euscript}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{nicefrac}
+\usepackage{multicol}
+\usepackage{stmaryrd}
+\usepackage[english,russian]{babel}
+\usepackage{multicol}
+\usepackage[center]{titlesec}
+\usetikzlibrary{arrows,automata}
+
+\renewcommand{\theenumii}{\asbuk{enumii}}
+\AddEnumerateCounter{\asbuk}{\@asbuk}{\cyrm}
+
+
+\textwidth=17cm
+\hoffset=-0.8cm
+\voffset=-1.2cm
+%\headsep=0cm
+\topmargin=0cm
+\textheight=24cm
+\oddsidemargin=0pt
+\parindent=1.25cm
+
+
+
+\linespread{1.06}
+
+%\pagestyle{empty}
+\pagestyle{fancy}
+\lhead{\bfseries Теория алгоритмов}
+\rhead{\itshape 2018/2019 (весенний семестр)}
+%\fancyfoot{}
+
+\renewcommand{\theenumii}{\asbuk{enumii}}
+
+\newcommand{\FF}{\mathbb F}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\CC}{\mathbb C}
+
+\newcommand{\tol}{\shortleftarrow}
+\newcommand{\tor}{\shortrightarrow}
+\newcommand{\tra}[3]{{\scriptsize $#1/#2\!#3$}}
+
+\newcommand{\monus}{\stackrel{{}^{\scriptstyle .}}{\smash{-}}}
+\begin{document}
+
+\begin{center} 
+\bfseries\LARGE Задание №6
+\end{center}
+
+\subsection*{Проблема соответствия Поста}
+
+
+Найти решения следующих экземпляров проблемы соответствия Поста, 
+либо доказать, что решения не существует:
+
+\begin{multicols}{2}
+  \begin{enumerate}[label=\arabic*),itemsep=5pt]
+  \item $A=(1,10111,10)$, $B=(111,10,0)$;
+  \item $A=(10,011,101)$, $B=(101,11,011)$;
+  \item $A=(01,001,10)$, $B=(011,10,00)$;
+  \item $A=(01,001,10)$, $B=(011,01,00)$;
+  \item $A=(ab,a,bc,c)$, $B=(bc,ab,ca,a)$;
+  \item $A=(abab,aaabbb,aab,ba,ab,aa)$,\\$B=(ababaaa,bb,baab,baa,ba,a)$.
+  \end{enumerate}
+\end{multicols}
+
+\emph{Необходимые определения и примеры решения экземпляров проблемы соответствия Поста можно найти в~книге Хопкрофта, Мотвани и Ульмана «Введение в теорию автоматов, языков и вычислений» (глава 9, раздел 9.4).}
+
+\subsection*{Классы  P и NP}
+
+\begin{enumerate}[itemsep=5pt]
+\item Докажите утверждения о замкнутости класса \textbf P относительно различных операций:
+  \begin{enumerate}
+  \item если $L_1, L_2\in  \mathbf P$ и $L=L_1\cup L_2$, то $L\in \mathbf P$ (объединение);
+  \item если $L\in \mathbf P$, то $\overline L\in \mathbf P$ (дополнение);
+  \item если $L_1, L_2\in  \mathbf P$ и $L=\{\alpha\beta: \alpha\in L_1, \beta\in L_2\}$, то $L\in \mathbf P$ (конкатенация).
+  \end{enumerate}
+
+\item Сформулируйте и докажите утверждения о том, что класс \textbf{NP} замкнут относительно  объединения и конкатенации. Что будет происходить в случае дополнения?
+\item Докажите, что следующие задачи разрешения принадлежат классу \textbf{NP}:
+  \begin{enumerate}[topsep=0mm,itemsep=0mm]
+  \item раскраска вершин графа двумя цветами таким образом, чтобы 
+любые две смежные вершины были разноцветными;
+\item  раскраска вершин графа тремя цветами таким образом, чтобы 
+любые две смежные вершины были разноцветными.
+  \end{enumerate}
+\end{enumerate}
+
+\subsection*{Булевы формулы}
+
+\begin{enumerate}[itemsep=5pt]
+\item Постройте по следующим булевым формулам формулы в КНФ, а затем в 3-КНФ, выполнимые одновременно с исходными:
+  \begin{multicols}{2}
+  \begin{enumerate}
+  \item $xy+\overline{x}z$;
+  \item $wxyz+u+v$;
+  \item $wxy+\overline x uv$;
+  \item $x+\neg (\overline y + z) +t$;
+  \item $(x+ yz)\neg(t+x\overline u)$;
+  \item $\neg(x+y)\neg(x+z)\neg(y+z)$.
+  \end{enumerate}
+  \end{multicols}
+Если исходная формула выполнима, постройте удовлетворяющую ей подстановку и её расширение на построенную формулу в 3-КНФ.
+  
+\item Постройте по следующим формулам в КНФ формулы в 3-КНФ, выполнимые одновременно с исходными,
+и укажите удовлетворяющие им подстановки:
+\begin{multicols}{2}
+\begin{enumerate}[topsep=0mm]
+\item $x\wedge(\bar x\vee y)$;
+\item $\bar x\vee \bar y \vee z \vee \bar u$;
+\item $(x\vee \bar u)\wedge(\bar y\vee z)$;
+\item $(\bar x\vee \bar s)\wedge(x\vee z\vee y\vee s)$;
+\item $x\vee y \vee z \vee u \vee v$;
+\item $x\wedge (y\vee \bar z) \wedge (\bar x\vee s \vee \bar z \vee u)$.
+\end{enumerate}
+\end{multicols}
+\vspace{-3mm}
+
+\item Опишите работающий полиномиальное время алгоритм, вычисляющий
+значение булевой формулы на заданной подстановке.
+
+\item Посчитайте, сколько существует различных дизъюнктов с тремя литералами или их отрицаниями
+в случае, если всего имеется $n$ переменных. Сколько существует формул в 3-КНФ с $m$ дизъюнктами
+и $n$ переменными? Сколько существует формул в 3-КНФ с не более чем $m$ дизъюнктами
+и $n$ переменными? 
+
+\item Опишите работающий полиномиальное время алгоритм, выполняющий проверку выполнимости
+булевой формулы в форме 2SAT. \textit{Подсказка}: предположить истинность 
+одной из переменных и попытаться извлечь из этого предположения все возможные следствия.
+
+\item Докажите, что проблема существования у булевой формулы как минимум четырёх
+различных удовлетворяющих ей подстановок является NP-полной.
+
+\end{enumerate}
+\end{document}

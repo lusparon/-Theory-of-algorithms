@@ -1,0 +1,128 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{cmap}
+\usepackage{indentfirst}
+\usepackage{fancyhdr}
+\usepackage{stmaryrd}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[center]{titlesec}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,shapes,automata} 
+
+\textwidth=17cm
+\voffset=-1cm
+\hoffset=-0.5cm
+\topmargin=0cm
+\textheight=24.5cm
+\oddsidemargin=0pt
+
+\pagestyle{fancy}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lhead{\bfseries Домашнее задание №4}
+\rhead{Тызыхян Луспарон, 2.8}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
+\fancyfoot{}
+\input{task-defs}
+
+\begin{document}
+\section*{Домашнее задание №4}
+
+
+\begin{enumerate}
+\item Упражнение 1.\\
+$M_{x_1}^{x_2}\\
+1: \uif{x_2=0}{6}{2}\\
+2: x_1\uleft x_1+1\\
+3: x_2\uleft x_2\monus 1\\
+4: x_3\uleft x_3+1\\
+5: goto\;1\\
+6: \uif{x_3=0}{10}{7}\\
+7: x_2\uleft x_2+1\\
+8: x_3\uleft x_3\monus 1\\
+9: goto\;6\\
+10:\ustop\\$
+
+\item Упражнение 2 (любые три пункта).\\
+(a) $M_{x_1}^{x_2}\\
+1: \uif{x_2=0}{3}{2}\\
+2: x_1\uleft 1\\
+3: stop\\$\\
+(б) $M_{c}^{xy}\\
+1: c\uleft x\\
+2: i\uleft y\\
+3: \uif{i=0}{7}{4}\\
+4: c\uleft c+1\\
+5: i\uleft i\monus 1\\
+6: goto\;3\\
+7: stop\\ $\\
+(г) $M_{c}^{xy}\\
+1: \uif{x=0}{11}{2}\\
+2: i\uleft y\\
+3: i\uleft i\monus 1\\
+4: \uif{i=0}{9}{5}\\
+5: \uif{x=0}{11}{6}\\
+6: x\uleft x\monus 1\\
+7: i\uleft i\monus 1\\
+8: goto\;4\\
+9: c\uleft c+1\\
+10: goto\;1\\
+11: stop\\$
+
+\item Упражнение 3 (в, г).\\
+(в)$comp(\cdot, P_2^3, P_2^3)(7, 14, 8) = P_2^3(7, 14, 8) \cdot P_2^3(7,14,8) = 14 \cdot 14 = 196$\\
+(г)$prim(S,h)(7,2) = f(7,2) = \\
+= 6 + 2 + f(6,2) = 8 + 7 + f(5,2) = 15 + 6 + f(4,2) = \\
+= 21 + 5 + f(3,2) = 26 + 4 + f(2,2) = 30 + 3 + f(1,2) = \\
+= 33 + 2 + f(0,2) = 35 + 3 = 38 $\\
+\item Упражнение 4 (в, е).\\
+(в) $\varphi(x) = x!\;$(здесь $0! = 1)\\
+\varphi(x)=\widetilde p(x,y)\\
+\widetilde p(0,y)=1=S(Z(y))=comp[S,Z](y)\\
+\widetilde p(x+1,y)=(x+1) \cdot \widetilde p(x,y) =S(x) \cdot \widetilde p(x,y) = comp[\cdot, comp[S, P_1^3], P_3^3](x,y,\widetilde p(x,y))\\
+\varphi(x)=prim[comp(S,Z),comp[\cdot, P_1^3, P_3^3]]\\$
+(е) $\overline{\mathrm{sg}}(x)=\begin{cases}1, \mbox{ если
+}x=0,\\ 0, \mbox{ если }x>0.\end{cases}\\
+\overline{\mathrm{sg}}(x) = \widetilde p(x,y)\\ 
+\widetilde p(0,y)=1=S(Z(y))=comp[S,Z](y)\\
+\widetilde p(x+1,y)=0=P_2^2(x,Z(y))\\
+\overline{\mathrm{sg}}(x) = prim[comp(S,Z),P_2^2(x,Z(y))]$\\
+\item Упражнение 6 (любые два пункта).\\
+(a) $\varphi(x,y)=|x-y|\\
+\varphi(0,y)=y=P_1^1(y)\\
+\varphi(x+1,y)=(x\monus y)+(y\monus x)=comp[+,comp[\monus,P_1^3,P_2^3], comp[\monus,P_2^3,P_1^3]](x,y,\varphi(x,y))\\
+|x-y|=prim[P_1^1,comp[+,comp[\monus,P_1^3,P_2^3],comp[\monus,P_2^3,P_1^3]]]$
+
+(в) $\varphi(x,y)=max(x,y)\\
+\varphi(0,y)=y=P_1^1(y)\\
+\varphi(x+1,y)=x + (y\monus x)=comp[+,P_1^2, comp[\monus, P_1^2, P_2^2]] (x,y)\\
+max(x,y)=prim[P_1^1,comp[+,P_1^2, comp[\monus, P_1^2, P_2^2]]]\\$
+
+\item Упражнение 7 (один любой пункт) — символы надчёркивания над именами переменных можно игнорировать.\\
+(в)$
+\lambda xyzu.f(x,y,z,y,u)=comp[f,P_1^5,P_2^5,P_3^5,P_2^5,P_5^5](x,y,z,w,u)
+\\$
+\item Задание на 4 бонусных балла: упражнения 5 и 8.\\
+Упражнение 5.\\
+$f(0)=1; f(1)=2; f(2)=3; f(n)=0, $ для $ n>2.\\
+f(x) = \widetilde p(x,y) \\
+\widetilde p(0,y)=1=S(Z(y))=comp[S,Z](y)\\
+\widetilde p(x+1,y)=((x+1)\monus 1)\cdot(3\monus (x+1)) + (3\monus (x+1))\cdot \widetilde p(x,y)
+=comp[+, comp[\cdot, comp[\monus, comp[+, P_1^3, 1], 1], comp[\monus, 3, comp[+, P_1^3, 1]]], comp[\cdot, comp[\monus, 3, comp[+, P_1^3,1]],P_3^3](x,y,\widetilde p(x,y))\\
+\widetilde p=prim[comp[S,Z], comp[+, comp[\cdot, comp[\monus, comp[+, P_1^3, 1], 1], comp[\monus, 3, comp[+, P_1^3, 1]]], comp[\cdot, comp[\monus, 3, comp[+, P_1^3,1]],P_3^3]
+\\$
+
+Упражнение 8.\\
+Из определения композиции слудует , что в аргумент первой функции мы подаем возвращаемое значение второй функции , которое всегда будет четным.Следовательно аргумент первой функции четный и отсюда возвращаемое значение тоже будет чётным.ЧТД.\
+\end{enumerate}
+
+\end{document}

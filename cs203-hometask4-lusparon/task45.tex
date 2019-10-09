@@ -1,0 +1,209 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{cmap}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{nicefrac}
+\usepackage{multicol}
+\usepackage[center]{titlesec}
+
+\textwidth=18cm
+\hoffset=-1cm
+\voffset=-1cm
+%\headsep=0cm
+\topmargin=0cm
+\textheight=23.9cm
+\oddsidemargin=0pt
+\parindent=1.25cm
+
+\linespread{1}
+
+\pagestyle{empty}
+\pagestyle{fancy}
+\lhead{\bfseries Теория алгоритмов}
+\rhead{\itshape 2018/2019 (весенний семестр)}
+\fancyfoot{}
+
+
+\renewcommand{\theenumii}{\asbuk{enumii}}
+\AddEnumerateCounter{\asbuk}{\@asbuk}{\cyrm}
+
+\newcommand{\monus}{\stackrel{{}^{\scriptstyle .}}{\smash{-}}}
+\newcommand{\recop}[2]{\textbf{#1}(#2)}
+\newcommand{\Comp}[1]{\recop{comp}{#1}}
+\newcommand{\Mn}[1]{\recop{Mn}{#1}}
+\newcommand{\Prr}[1]{\recop{prim}{#1}}
+
+\input{LambdaDefs}
+
+
+\begin{document}
+\section*{Задания №4 и №5: регистровые машины,\\ примитивная рекурсивность, кодирование}
+
+\begin{enumerate}[itemsep=3pt]
+
+\item Написать регистровую машину, которая копирует значение входного регистра $x_2$ 
+в выходной регистр $x_1$. Значение входного регистра в конце работы поменяться не должно.
+
+\item Написать регистровые машины для вычисления следующих функций:
+  \begin{enumerate}
+  \begin{multicols}{2}
+    \item $\operatorname{sg}x=\begin{cases}0, \mbox{ если }x=0,\\ 1,
+        \mbox{ если }x>0;\end{cases}$
+    \item $f(x,y)=x+ y$;
+    \item $f(x,y)=|x-y|$;
+    \item $f(x,y)=x \operatorname{div} y$;
+    \item $f(x,y)=x \operatorname{mod} y$.
+  \end{multicols}
+  \end{enumerate}
+
+\item Вычислить значения следующих выражений (\textbf{comp} --- оператор композиции, \textbf{prim}~---~оператор примитивной рекурсии):
+  \begin{multicols}{2}
+    \begin{enumerate}
+    \item $\Comp{P^2_2, Z,S}(9)$;
+    \item $\Prr{P^2_2,\Comp{S, P^4_4}}(6,35,2)$;
+    \item $\Comp{\cdot, P^3_2,P^3_2}(7, 14, 8)$;
+    \item $\Prr{S,h}(7,2)$, где $h(x,y,z) = x+y+z$.
+    \end{enumerate}
+  \end{multicols}
+\item Доказать, что следующие функции являются примитивно рекурсивными, построив для них
+схему примитивной рекурсии:
+  \begin{multicols}{2}
+    \begin{enumerate}
+    \item $\varphi(x,y)=x + y$;
+    \item $\varphi(x,y)=x\cdot y$;
+    \item $\varphi(x)=x!$ (здесь $0!=1$);
+    \item $\varphi(x,y)=x^y$ (здесь $0^0=1$);
+    \item $\mathrm{sg}(x)=\begin{cases}0, \mbox{ если }x=0,\\ 1,
+        \mbox{ если }x>0;\end{cases}$
+    \item $\overline{\mathrm{sg}}(x)=\begin{cases}1, \mbox{ если
+        }x=0,\\ 0, \mbox{ если }x>0.\end{cases}$
+    \end{enumerate}
+  \end{multicols}
+Записать эти функции в виде из предыдущего упражнения.
+
+\item Доказать, что функция $f$, определенная следующим образом, является примитивно рекурсивной:
+\[
+\begin{array}{l}
+f(0)=1;\quad f(1)=2;\quad  f(2)=3;\quad f(n)=0, \mbox{\ для $n>2$}.
+\end{array}
+\]
+\item Доказать, что следующие функции примитивно рекурсивны, представив их в виде композиции
+  сложения и усечённой разности ($x\monus y$):
+  \begin{multicols}{3}
+    \begin{enumerate}
+    \item $|x-y|$;
+    \item $\min(x,y)$;
+    \item $\max(x,y)$.
+    \end{enumerate}
+  \end{multicols}
+
+
+
+\item Доказать, что множество $\mathcal{PR}$ замкнуто относительно следующих операций, 
+выразив их через оператор композиции:
+  \begin{enumerate}
+  \item получение $\lambda \bar x \bar z.f(\bar x)$ из $\lambda \bar x.f(\bar x)$ (введение неиспользуемых переменных);
+  \item получение $\lambda \bar x y \bar z w \bar u.f(\bar x,w,\bar z,y,\bar u)$ из 
+$\lambda \bar x y \bar z w \bar u.f(\bar x,y,\bar z,w,\bar u)$ (перестановка переменных);
+\item получение $\lambda \bar x y \bar z \bar u.f(\bar x,y,\bar z,y,\bar u)$ из 
+$\lambda \bar x y \bar z w \bar u.f(\bar x,y,\bar z,w,\bar u)$ (отождествление двух переменных).
+  \end{enumerate}
+
+
+\item Будем называть функцию чётной, если её значение на чётных аргументах всегда чётно. 
+Проверить, сохраняется ли свойство чётности для композиции чётных функций.
+  
+\item Доказать, что следующие функции и предикаты являются примитивно рекурсивными:
+  \begin{enumerate}
+  \item $\tau(x)$ — число делителей $x$, $\tau(0)=0$;
+  \item $\sigma(x)$ — сумма делителей $x$, $\sigma(0)=0$;
+  \item $\tau_p(x)$ — число простых делителей $x$, $\tau_p(0)=0$;
+  \item $D_{m,n}(x)$ — $x$ делится на $m$ и на $n$;
+  \item $E(x)$ --- $x$ чётно;
+  \item $N(x,y)\equiv x\neq y$;
+  \item $\mathrm{lcm}(x,y)$ --- наименьшее общее кратное чисел $x$ и $y$;
+  \item $\mathrm{gcd}(x,y)$ --- наибольший общий делитель чисел $x$ и $y$;
+  \item $\mathrm{MPr}(x,y)$ --- $x$ и $y$ взаимно просты;
+  \item $\mathrm{sqrt}(x) = \lfloor\sqrt x\rfloor$ --- целая часть числа $\sqrt x$;
+  \item $\mathrm{rt}(x, y) = \lfloor\sqrt[y] x\rfloor$ --- целая часть числа $\sqrt[y] x$,
+где $\sqrt[0]x=x$;
+  \item $\phi(x) = \lfloor x\sqrt 2\rfloor$ --- целая часть числа $x \sqrt 2$.
+  \end{enumerate}
+
+
+\item Закодировать следующие числовые последовательности:
+  \begin{enumerate}
+    \begin{multicols}{4}
+  \item  $[6,3,2]$;
+  \item   $[1,5,2]$; 
+  \item   $[7,4,1,2]$;
+  \item   $[3,2,1,2]$.
+    \end{multicols}
+  \end{enumerate}
+
+\item Раскодировать числовые последовательности с кодами:
+  \begin{enumerate}
+    \begin{multicols}{4}
+  \item 97200;
+  \item 72000;
+  \item 102900;
+  \item 1131900.
+    \end{multicols}
+  \end{enumerate}
+
+\item Нормализовать, реализовать и закодировать следующие регистровые машины 
+вместе с их завершающимися вычислениями (для заданных значений входных регистров):
+  \begin{enumerate}
+    \begin{multicols}{2}
+    \item $M_x=\Lx 2$;
+    \item $M^x_y=\Lx \mathrm{sg}(x)$, $x=0$;
+    \item $M^x_y=\Lx \overline{\mathrm{sg}}(x)$, $x=0$;
+    \item $M^x_y=\Lx x + 1$, $x=1$;
+    \item $M^x_y=\Lx x\monus 1$, $x=1$;
+    \item $M^{xy}_z=\Lvar{xy}x+y$, $x=2$, $y=1$.
+    \end{multicols}
+  \end{enumerate}
+
+\item Раскодировать регистровые машины с кодами:
+  \begin{enumerate}
+    \begin{multicols}{2}
+    \item $2^{6301}3^{1729}$;
+    \item $2^{308701}3^{26575698996001}5^{16201}7^{15553}$.
+    \end{multicols}
+  \end{enumerate}
+
+
+\item Пользуясь неограниченным поиском, доказать утверждение: 
+если график $z=f(\bar x)\in{\mathcal R_*}$ и $f$ всюду определена, 
+то $f\in\mathcal R$.
+
+\item Доказать индукцией по $n$, что для всех $n$ имеет место неравенство $p_n\leqslant 2^{2^n}$,
+где $p_n$ --- $n$-е простое число, считая с нуля. 
+\emph{Указание}. Рассмотреть число 
+$p_0p_1\cdots p_n+1$ и ответить на вопросы: простое оно или составное, 
+как оно соотносится с $p_{n+1}$, каковы его возможные делители.
+
+
+\item а) Доказать, что $P(\bar x_n)\in\mathcal P_*$ тогда и только тогда, когда
+существует частично рекурсивная функция $\Lvar{\bar x_n} g(\bar x_n)$ такая, что 
+для всех $\bar x_n$ отношение $P(\bar x_n)\equiv g(\bar x_n)=0$. 
+
+б) Пользуясь этим фактом, доказать, что $\mathcal{PR}_*\subset\mathcal P_*$ и 
+$\mathcal{R}_*\subset\mathcal P_*$.
+
+\end{enumerate}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

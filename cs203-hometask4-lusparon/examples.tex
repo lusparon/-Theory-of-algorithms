@@ -1,0 +1,49 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{cmap}
+\usepackage{indentfirst}
+\usepackage{fancyhdr}
+\usepackage{stmaryrd}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[center]{titlesec}
+
+
+
+\textwidth=17cm
+\voffset=-1cm
+\hoffset=-0.5cm
+\topmargin=0cm
+\textheight=24.5cm
+\oddsidemargin=0pt
+
+\input{task-defs}
+
+\begin{document}
+
+
+\section*{Пример регистровой машины}
+\begin{flalign*}
+1&: x\uleft 0&&\\
+2&: x\uleft x+1&&\\
+3&: z\uleft z\monus 1&&\\
+4&: \uif{z=0}{5}{2}&&\\
+5&: \ustop&&
+\end{flalign*}
+
+
+\section*{Пример схемы примитивной рекурсии}
+\begin{flalign*}
+  \widetilde p(0,y) &= 0 = Z(y)&&\\
+  \widetilde p(x+1,y) &= x = P^3_1(x,y,\widetilde p(x,y))&&
+\end{flalign*}
+Таким образом, $\widetilde p = \Prr{Z,P^3_1}$.
+
+
+
+\end{document}

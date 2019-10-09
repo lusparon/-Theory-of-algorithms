@@ -1,0 +1,84 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{cmap}
+\usepackage{indentfirst}
+\usepackage{fancyhdr}
+\usepackage{stmaryrd}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[center]{titlesec}
+\usepackage{mathtools}
+
+
+
+\textwidth=17cm
+\voffset=-1cm
+\hoffset=-0.5cm
+\topmargin=0cm
+\textheight=24.5cm
+\oddsidemargin=0pt
+
+\renewcommand{\to}{\longrightarrow}
+\newcommand{\tof}{\to\!\!.\ }
+\newcommand{\tod}{\Longrightarrow}
+\newcommand{\xtod}[1]{\xRightarrow{\text{#1\ } }}
+\newcommand{\alphabet}[2]{#1=\{#2\}}
+\newcommand{\salp}[1]{\alphabet{\Sigma}{#1}}
+
+\begin{document}
+
+\section*{Примеры схем нормальных алгорифмов}
+
+\[
+\begin{cases}
+  ab\to \varepsilon\\
+  a \to b\\
+\end{cases}
+\]
+
+\[
+\begin{cases}
+   |||\to \varepsilon\\
+   || \tof \varepsilon\\
+   | \tof \varepsilon\\
+   \varepsilon \tof |\\
+\end{cases}
+\]
+
+\[
+\begin{cases}
+  0b\tof 1 &\text{(а)}\\
+  1b\to b0 &\text{(б)}\\
+  b\tof 1 &\text{(в)}\\
+  a0\to 0a &\text{(г)}\\
+  a1\to 1a  &\text{(д)}\\
+  0a\to 0b &\text{(е)}\\
+  1a\to 1b &\text{(ё)}\\
+  \varepsilon \to a &\text{(ж)}\\
+\end{cases}
+\]
+
+\section*{Примеры действия нормальных алгорифмов}
+
+$|||||||\tod |||| \tod | \tod \varepsilon$.
+
+$|||||||||\tod |||||| \tod ||| \tod \varepsilon \tod |$.
+
+\[
+a\underline{ab}abab \tod a\underline{ab}ab \tod a\underline{ab} \tod \underline{a} \tod b
+\]
+
+\begin{align*}
+ & \varepsilon \xtod{(ж)} a\xtod{(ж)} aa \xtod{(ж)} aaa \xtod{(ж)} \dots\\
+&  0 \xtod{(ж)} a0 \xtod{(г)}0a \xtod{(е)}0b\xtod{(а)}1\\
+ & 1 \xtod{(ж)}a1\xtod{(д)}1a\xtod{(ё)}1b\xtod{(б)}b0\xtod{(в)}10\\
+  &11 \xtod{(ж)}a11\xtod{(д)}1a1\xtod{(д)}11a \xtod{(ё)}11b\xtod{(б)}1b0\xtod{(б)}b00\xtod{(в)}100
+\end{align*}
+
+
+\end{document}

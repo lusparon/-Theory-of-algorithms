@@ -1,0 +1,19 @@
+\renewcommand{\L}{\ensuremath{\lambda}}
+\newcommand{\Lvar}[1]{\ensuremath{\L #1\,.\,}}
+\newcommand{\Lx}{\Lvar{x}}
+\newcommand{\Ly}{\Lvar{y}}
+\newcommand{\Lz}{\Lvar{z}}
+\newcommand{\Lt}{\Lvar{t}}
+\newcommand{\Ln}{\Lvar{n}}
+
+
+
+% Команды для описания регистровых машин
+
+\newcommand{\monus}{\stackrel{{}^{\scriptstyle .}}{\smash{-}}}
+\newcommand{\recop}[2]{\textbf{#1}(#2)}
+\newcommand{\Comp}[1]{\recop{comp}{#1}}
+\newcommand{\Prr}[1]{\recop{prim}{#1}}
+\newcommand{\uif}[3]{\mathrm{if}\ #1\  \mathrm{then\ goto}\ #2\ \mathrm{else\ goto}\ #3}
+\newcommand{\ustop}{\mathrm{stop}}
+\newcommand{\uleft}{\leftarrow}

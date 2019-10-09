@@ -1,0 +1,228 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{cmap}
+\usepackage{indentfirst}
+\usepackage{fancyhdr}
+\usepackage{stmaryrd}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage[center]{titlesec}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,shapes,automata} 
+\tikzset{
+	treenode/.style = {align=center, inner sep=0pt, text centered,
+		font=\sffamily,minimum height=1.2em},
+	app/.style = {treenode, black, rectangle, font=\itshape,
+		text width=2.2em},% arbre rouge noir, noeud noir
+	lam/.style = {treenode,  black,  
+		text width=1.5em},% arbre rouge noir, noeud rouge
+	var/.style = {treenode, circle, 
+		minimum width=1.5em, minimum height=0.5em}% arbre rouge noir, nil
+}
+
+\textwidth=17cm
+\voffset=-1cm
+\hoffset=-0.5cm
+\topmargin=0cm
+\textheight=24.5cm
+\oddsidemargin=0pt
+
+\pagestyle{fancy}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lhead{\bfseries Домашнее задание №2}
+\rhead{Тызыхян Луспарон, 2.8}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
+\fancyfoot{}
+
+\input{task-defs}
+
+
+\begin{document}
+\section*{Домашнее задание №2}
+
+\subsection*{Задание №1: $\lambda$-исчисление}
+
+
+\subsubsection*{Задания по упражнению 1}
+
+\emph{Выполните любые два пункта.}
+
+Решение.\\ 
+1д) 
+$ux(yz)(\lambda v.vy) = (((ux)(yz))(\lambda v.(vy)))$
+\begin{center}
+\begin{tikzpicture}[-,>=stealth',level/.style={sibling distance = 3cm/#1,level distance = 1.2cm}]
+	
+\node [app] {App}
+	child{ node [app] {App} 
+		child{ node [app] {App}
+			child{ node [app] {App}
+				child{ node [var] {u}}
+				child{ node [var] {x}}
+			}
+			child{ node [app] {App}
+			    child{ node [var] {y}}
+			    child{ node [var] {z}}
+		    }
+		}
+	}                        
+	child{ node [lam] {$\L v$}
+		child{ node [app] {App}
+			child{ node [var] {$v$}}
+			child{ node [var] {$y$}} 
+		}	
+	}
+;
+\end{tikzpicture}
+\end{center}
+1з) $vw(\lambda xy.vx) = ((vw)(\lambda (xy).(vx)))$
+\begin{center}
+\begin{tikzpicture}[-,>=stealth',level/.style={sibling distance = 3cm/#1,level distance = 1.2cm}]
+	
+\node [app] {App}
+	child{ node [app] {App} 
+		child{ node [var] {$v$}}
+		child{ node [var] {$w$}}
+	}                        
+	child{ node [lam] {$\L x$}
+		child{ node [lam] {$\L y$}
+			child{ node [app] {App}
+				child{ node [var] {$v$}}
+				child{ node [var] {$x$}}
+			}
+		}
+	} 
+;
+\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Задания по упражнению 2}
+
+\emph{Выполните любые три пункта.}
+
+Решение.\\
+2а) $[uv/x](\Lx zy) = \Lx zy$\\
+2д) $[uy/x](x\Ly yx) = \\= (uy)([uy/x](\Ly yx)) = \\= (uy)(\Lz [uy/x]([z/y](yx))) = \\= (uy)(\Lz z(uy)).$\\
+2е) $[uv/x](\Ly x( \L w.vwx)) = \\= \Ly [uv/x](x(\L w.vwx)) = \\= \Ly (uv)([uv/x](\L w.vwx)) = \\= \Ly (uv)(\L w.[uv/x](vwx)) = \\= \Ly (uv)(\L w.vw(uv)).$
+
+
+
+\subsubsection*{Задания по упражнению 3}
+
+\emph{Выполните любые четыре пункта.}
+
+Решение.
+\begin{enumerate}
+\item
+(б)
+\[
+\begin{array}{ll}
+\underline{(\L(xy).yx)\,u}v &\betared [u/x](\Ly yx)\,v = \underline{(\Ly yu)\,v}\\
+&\betared [v/y](yu) = vu;\\
+\end{array}
+\]
+\item
+(г)
+\[
+\begin{array}{ll}
+\underline{(\Lx xxy)\,(\Ly yz)} &\betared [\Ly yz/x](xxy) = \underline{(\Ly yz)(\Ly yz)}\,y\\
+&\betared [\Ly yz](yz)\,y = \underline{(\Ly yz)\,z}\,y\\ &\betared [z/y](yz)y = zzy;\\
+\end{array}
+\]
+\item
+(з)
+\[
+\begin{array}{ll}
+\underline{(\L(xy).yx)\,(uv)}\,zw &\betared [uv/x](\Ly yx)\,zw = (\Ly [uv/x](yx) )\,zw = \underline{(\Ly y(uv))z}\,w \\ &\betared [z/y](y(uv))w = z(uv)w;\\
+\end{array}
+\]
+\item
+(к)
+\[
+\begin{array}{ll}
+\underline{(\L(xyz).xz(yz))(\L(uv).u)} &\betared [\L(uv).u/x](\L(yz).xz(yz)) = \L(yz).[\L(uv).u/x](xz(yz)) = \\ = \L(yz).\underline{(\L(uv).u)z}\,(yz) \\ &\betared \L(yz).[z/u](\L v.u)(yz) = \L(yz).\underline{(\L v.z)(yz)} \\ &\betared \L(yz).[yz/v](z) = \L(yz).z;\\
+\end{array}
+\]
+\end{enumerate}
+
+
+\subsubsection*{Задания по упражнению 4}
+
+\emph{Выполните любые два пункта.}
+
+Решение.
+\begin{enumerate}
+\item
+(a) нормальный порядок
+\[
+\begin{array}{ll}
+\underline{(\Lx x(x(yz))x)\,(\L u.uv)} &\betared [\L u.uv/x](x(x(yz))x) = \underline{(\L u.uv)\,((\L u.uv)(yz))}\,(\L u.uv) \\ &\betared [(\L u.uv)(yz)/u](uv)(\L u.uv) = (\underline{(\L u.uv)(yz)}v)(\L u.uv) \\ &\betared ([yz/u](uv)v)(\L u.uv) = yzvv\L u.uv ;\\
+\end{array}
+\]
+\item
+(a) аппликативный порядок
+\[
+\begin{array}{ll}
+\underline{(\Lx x(x(yz))x)\,(\L u.uv)} &\betared [\L u.uv/x](x(x(yz))x) = (\L u.uv)\,\underline{((\L u.uv)(yz))}\,(\L u.uv) \\ &\betared (\L u.uv)([yz/u](uv))(\L u.uv) = \underline{(\L u.uv)(yzv)}(\L u.uv) \\ &\betared [yzv/u](uv)(\L u.uv) = yzvv\L u.uv ;\\
+\end{array}
+\]
+\item
+(в) нормальный порядок
+\[
+\begin{array}{ll}
+\underline{(\Lx y)((\Ly yy)(\Ly yy))} &\betared [(\Ly yy)(\Ly yy)/x](y) = y;\\
+\end{array}
+\]
+\item
+(в) аппликативный порядок
+\[
+\begin{array}{ll}
+(\Lx y)\underline{((\Ly yy)(\Ly yy))} &\betared (\Lx y)([\Ly yy/y](yy)) = (\Lx y)((\Ly yy)(\Ly yy)) ...\\
+\end{array}
+\]
+\end{enumerate}
+
+\subsubsection*{Задания по упражнению 5}
+
+\emph{Выполните любые два пункта.}
+
+Решение.
+
+\subsubsection*{Задания по упражнению 7}
+
+\emph{Выполните любые два пункта.}
+
+Решение.
+\begin{enumerate}
+\item 
+(a)
+\[
+\begin{array}{lcl}
+T[\Lx y] &=&\\
+&=& \cK ( T[y])\quad \text{(правило 4)}\\
+&=& \cK y\quad \text{(правило 1)}\\
+\end{array}
+\]
+\item 
+(б)
+\[
+\begin{array}{lcl}
+T[\Ly\Lx xx] &=&\\
+&=& \cK (T[\Lx xx])\quad \text{(правило 4)}\\
+&=& \cK (\cS (T[\Lx x])(\Lx x))\quad \text{(правило 6)}\\
+&=& \cK (\cS \cI \cI)\quad \text{(правило 3)}\\
+\end{array}
+\]
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,110 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{cmap}
+\usepackage{indentfirst}
+\usepackage{fancyhdr}
+\usepackage{stmaryrd}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[center]{titlesec}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,shapes,automata} 
+\tikzset{
+  treenode/.style = {align=center, inner sep=0pt, text centered,
+    font=\sffamily,minimum height=1.2em},
+  app/.style = {treenode, black, rectangle, font=\itshape,
+     text width=2.2em},% arbre rouge noir, noeud noir
+  lam/.style = {treenode,  black,  
+    text width=1.5em},% arbre rouge noir, noeud rouge
+  var/.style = {treenode, circle, 
+    minimum width=1.5em, minimum height=0.5em}% arbre rouge noir, nil
+}
+
+
+
+
+\textwidth=17cm
+\voffset=-1cm
+\hoffset=-0.5cm
+\topmargin=0cm
+\textheight=24.5cm
+\oddsidemargin=0pt
+
+
+% Команды для описания диаграмм переходов
+\newcommand{\tol}{\shortleftarrow}
+\newcommand{\tor}{\shortrightarrow}
+\newcommand{\tra}[3]{{\scriptsize $#1/#2\!#3$}}
+
+\begin{document}
+
+
+\subsection*{Пример задания функции переходов  МТ таблицей}
+
+ Дана машина Тьюринга
+$M=\left(\{q_0, q_1, q_2, q_3\},\{1,*\},\{1,*,B\},\delta,q_0,B,\{q_3\}\right)$, функция
+переходов которой задана таблицей:
+\begin{center}
+  \begin{tabular}[t]{c||c|c|c}
+     & $B$ & 1 & $*$\\
+    \hline\hline
+    $q_0$ & --- &$(q_1,B,R)$& $(q_3,B,R)$\\
+    $q_1$ &$(q_2,1,L)$  &$(q_1,1,R)$& $(q_1,*,R)$\\
+    $q_2$ &$(q_0,B,R)$  &$(q_2,1,L)$& $(q_2,*,L)$\\
+    $q_3$ & --- & --- & ---
+  \end{tabular}
+  
+\end{center}
+
+
+\subsection*{Пример задания функции переходов  МТ диаграммой}
+
+Дана машина Тьюринга 
+$M=\left(\{q_0, q_1, q_2, q_3, q_4\},\{0, 1\},\{0,1,X,Y,B\},\delta,q_0,B,\{q_4\}\right)$,
+функция переходов которой задана диаграммой:
+
+\begin{center}
+  \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,semithick]
+\tikzstyle{every node}=[font=\small]
+  \node[initial, initial text=,state] (A) {$q_0$};
+  \node[state] (B) [right of=A] {$q_1$};
+  \node[state] (C) [right of=B] {$q_2$};
+  \node[state] (D) [below of=A] {$q_3$};
+  \node[state,accepting] (E) [right of=D] {$q_4$};
+
+  \path (A) edge              node {\tra 0X\tor} (B)
+        (B) edge [loop above] node {\tra YY\tor, \tra 00\tor} (B)
+        (B) edge              node {\tra 1Y\tol} (C)
+        (C) edge [loop right] node {\tra YY\tol, \tra 00\tol} (C)
+        (C) edge [bend left]  node {\tra XX\tor} (A)
+        (A) edge              node {\tra YY\tor} (D)
+        (D) edge [loop below] node {\tra YY\tor} (D)
+        (D) edge              node {\tra BB\tor} (E);
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Пример задания функции переходов МТ отдельными правилами}
+
+Дана машина Тьюринга
+$M=\left(\{q_0, q_1, q_2, q_f\},\{0,1\},\{0,1,B\},\delta,q_0,B,\{q_f\}\right)$,
+функция переходов которой задана набором правил:
+\begin{align*}
+\delta(q_0,0)&=(q_0,1,R),\\
+\delta(q_1,1)&=(q_2,0,L), \\
+\delta(q_2,1)&=(q_0,1,R),\\
+\delta(q_1,B)&=(q_f, B, R).
+\end{align*}
+
+\subsection*{Пример описания конфигураций МТ}
+
+$q_00001 \vdash 0q_0001 \vdash 00q_001 \vdash 000q_01 \vdash 0001q_1B$.
+
+
+
+
+\end{document}
